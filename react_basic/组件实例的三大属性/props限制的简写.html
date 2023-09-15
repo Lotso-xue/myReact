@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对props限制的简写方式（static）</title>
+</head>
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+   
+    <script type="text/babel">
+    {/* 在类里面写赋值语句会被作为实例的属性 ，如果类里面的赋值语句前面加一个static关键字的话，此时赋值语句会被作为该类的属性*/}
+
+        class Person extends React.Component{
+             {/* propTypes来对标签属性值的类型和必要性进行限制 */}
+        static propTypes = {
+            name:PropTypes.string.isRequired, //限制name必传，且为字符串
+            sex:PropTypes.string,//限制sex类型为字符串
+            age:PropTypes.number
+        }
+        {/* defaultProps设置默认值 */}
+        static defaultProps = {
+            sex:'不男不女',
+            age:18
+        }
+
+            render(){
+                const {name,age,sex} = this.props
+                return (
+                    <ul>
+                        <li>姓名：{name}</li>
+                        <li>性别：{sex}</li>
+                        <li>年龄：{age+1 }</li>
+                    </ul>
+                    )
+            }
+        }
+      
+     
+
+
+        ReactDOM.render(<Person name='jerry' age={21} sex='女'/>,document.getElementById('test'))
+        ReactDOM.render(<Person name='tom' age={89} sex='男'/>,document.getElementById('test2'))
+
+        const p = {name:'hahh',age:'23',sex:'男'}
+        ReactDOM.render(<Person {...p}/>,document.getElementById('test3'))
+      
+    </script>
+</body>
+</html>

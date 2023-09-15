@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>props基本使用</title>
+</head>
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+   
+    <script type="text/babel">
+        class Person extends React.Component{
+            render(){
+                // props是只读的，不可以修改
+                const {name,age,sex} = this.props
+                return (
+                    <ul>
+                        <li>姓名：{name}</li>
+                        <li>性别：{sex}</li>
+                        <li>年龄：{age}</li>
+                    </ul>
+                    )
+            }
+        }
+      
+        {/* 在组件标签里写key=value，就是传值，这些属性都保存到props里了 */}
+        ReactDOM.render(<Person name='jerry' age='21' sex='女'/>,document.getElementById('test'))
+        ReactDOM.render(<Person name='tom' age='89' sex='男'/>,document.getElementById('test2'))
+        {/*  语法糖：使用es6的...扩展运算符 */}
+        const p = {name:'hahh',age:'23',sex:'男'}
+        ReactDOM.render(<Person {...p}/>,document.getElementById('test3'))
+      
+    </script>
+</body>
+</html>

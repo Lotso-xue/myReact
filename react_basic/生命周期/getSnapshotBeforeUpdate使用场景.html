@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getSnapshotBeforeUpdate</title>
+    <style>
+        .list {
+            width: 200px;
+            height: 150px;
+            background-color: skyblue;
+            overflow: auto;
+        }
+        
+        .news {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+   
+    <div id="test"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        class NewList extends React.Component{
+            state = {newsArr:[]}
+            componentDidMount(){
+                setInterval(() => {
+                    // 获取原状态
+                    const {newsArr} = this.state
+                    const news = '新闻' + (newsArr.length+1)
+                    // 更新新闻状态
+                    this.setState({newsArr:[news,...newsArr]})
+                },1000)
+            }
+            getSnapshotBeforeUpdate(){
+                return this.refs.list.scrollHeight
+            }
+            componentDidUpdate(preProps,preState,height){
+                this.refs.list.scrollTop += this.refs.list.scrollHeight - height
+            }
+            render(){
+                return(
+                    <div className="list" ref="list">
+                       {
+                        this.state.newsArr.map((n,index) => {
+                            return <div key={index} className='news'>{n}</div>
+                        })
+                       }
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<NewList/>,document.getElementById('test'))
+    </script>
+</body>
+
+</html>

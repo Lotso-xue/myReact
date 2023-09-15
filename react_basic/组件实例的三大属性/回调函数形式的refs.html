@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>refs的使用</title>
+</head>
+<body>
+    <div id="test"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+   
+    <script type="text/babel">
+       class Demo extends React.Component{
+        // 标签的ref里面是箭头函数，参数curNode是当前ref的dom元素，函数体里面是给实例对象创建一个input1属性，且把当前dom元素赋值给她。
+        // 底下ref里面的函数可以写成内联的，也是单独写出来
+        showData = () => {
+            const {input1} = this
+            alert(input1.value)
+        }
+        showData2 = () => {
+            const {input2} = this
+            alert(input2.value)
+        }
+        refFun = (curNode) => {
+            this.input1 = curNode
+        }
+        render(){
+            return(
+                <div>
+                {/*<input ref={(curNode) => {this.input1 = curNode}} type="text" placeholder="点击按钮提示数据" /> */}
+                <input ref={this.refFun} type="text" placeholder="点击按钮提示数据" />
+                <button onClick={this.showData}>点我提示左侧的数据</button>
+                <input ref={(curNode) => {this.input2 = curNode}} onBlur={this.showData2} type="text" placeholder="失去焦点提示数据" />
+                </div>
+            )
+        }
+       }
+      
+       ReactDOM.render(<Demo/>,document.getElementById('test'))
+        
+      
+    </script>
+</body>
+</html>

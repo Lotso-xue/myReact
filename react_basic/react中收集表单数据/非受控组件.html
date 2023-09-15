@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非受控组件</title>
+</head>
+<body>
+    <div id="test"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+    {/* 非受控组件：即通过dom的形式更新值，要获取其值可以通过ref的形式去获取。 */}
+       class Login extends React.Component{
+        handleSubmit = (event) => {
+            event.preventDefault()
+            const{username,password} = this
+            alert(`你输入的用户名是${username.value},密码是${password.value}`)
+        }
+        render(){
+            return(
+                <form action="http://www.baidu.com" onSubmit={this.handleSubmit}>
+                    用户名：<input ref={c => {this.username = c}} type="text" name="username"/>
+                    密码：<input ref={c => {this.password = c}} type="password" name="password"/>
+                    <button>登录</button>
+                </form>
+            )
+        }
+       }
+
+       ReactDOM.render(<Login/>,document.getElementById('test'))
+
+    </script>
+</body>
+</html>

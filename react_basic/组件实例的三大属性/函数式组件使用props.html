@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数式组件使用props</title>
+</head>
+<body>
+    <div id="test"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+   
+    <script type="text/babel">
+        {/* 若给函数式组件添加标签属性，这些属性会保存在函数的props里 */}
+        function Person(props){
+            const {name,age,sex} = props
+            return (
+                <ul>
+                    <li>姓名：{name}</li>
+                    <li>年龄：{age}</li>
+                    <li>性别：{sex}</li>
+                </ul>
+            )
+        }
+      
+
+
+        ReactDOM.render(<Person name='jerry' age={21} sex='女'/>,document.getElementById('test'))
+      
+
+        
+      
+    </script>
+</body>
+</html>

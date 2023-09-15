@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类式组件</title>
+</head>
+<body>
+<div id="test"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+   
+    <script type="text/babel">
+        {/* 创建类式组件，类名组件首字母大写，必须要写render函数，函数必须要有返回值 */}
+        class Mycomp extends React.Component {
+            render(){
+                // render函数中this指向是 Mycomp 组件实例对象
+                console.log(this)
+                return <h2>我是用类定义的组件（适用于复杂组件的定义）</h2>
+            }
+        }
+        {/* 渲染组件到页面 */}
+        ReactDOM.render(<Mycomp/>,document.getElementById('test'))
+    </script>
+</body>
+</html>
